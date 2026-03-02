@@ -85,6 +85,48 @@
     }
     .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
 
+    /* ── HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 38px; height: 38px; border-radius: 10px;
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      cursor: pointer; margin-left: 0.4rem;
+    }
+    .nav-hamburger span {
+      display: block; width: 18px; height: 1.5px;
+      background: var(--muted); border-radius: 2px;
+      transition: all 0.25s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); background: var(--accent); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); background: var(--accent); }
+
+    /* ── MOBILE MENU DROPDOWN ── */
+    .nav-mobile-menu {
+      display: none;
+      position: fixed; top: 4.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 99;
+      width: calc(100% - 2rem); max-width: 400px;
+      background: rgba(10, 8, 32, 0.97);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.5);
+      padding: 0.6rem;
+      flex-direction: column; gap: 0.2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      display: block; padding: 0.75rem 1.2rem;
+      font-size: 0.9rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; border-radius: 12px;
+      transition: all 0.2s;
+    }
+    .nav-mobile-menu a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+    .nav-mobile-menu a:active { background: rgba(167,139,250,0.12); color: var(--accent); }
+
     .wrapper { position: relative; z-index: 1; }
 
     /* ── HERO ── */
@@ -578,6 +620,7 @@
     @media (max-width: 640px) {
       nav { width: calc(100% - 2rem); }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       .proj-grid { grid-template-columns: 1fr; }
       .certs-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
@@ -642,7 +685,19 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="navMobileMenu">
+  <a href="#home"         onclick="closeMobileMenu()">Home</a>
+  <a href="#projects"     onclick="closeMobileMenu()">Projects</a>
+  <a href="#publications" onclick="closeMobileMenu()">Publications</a>
+  <a href="#experience"   onclick="closeMobileMenu()">Experience</a>
+  <a href="#contact"      onclick="closeMobileMenu()">Contact</a>
+</div>
 
 <div class="wrapper">
 
@@ -1040,7 +1095,7 @@
       <button class="send-btn">Send Message ✦</button>
     </div>
     <div class="contact-info">
-      <a href="mailto:rithwikkp1612@gmail.com">rithwikkp1612@gmail.com</a>
+      <a href="/cdn-cgi/l/email-protection#bcced5c8d4cbd5d7d7cc8d8a8d8efcdbd1ddd5d092dfd3d1"><span class="__cf_email__" data-cfemail="8cfee5f8e4fbe5e7e7fcbdbabdbeccebe1ede5e0a2efe3e1">[email&#160;protected]</span></a>
       <a href="tel:+17657013197">+1 (765) 701-3197</a>
       <a href="https://www.linkedin.com/in/kprithwik/" target="_blank">linkedin.com/in/kprithwik</a>
       <span style="color:var(--muted);">West Lafayette, IN</span>
@@ -1054,7 +1109,27 @@
   Built by <span>Prakash Rithwik Karry</span> · 2025 · Purdue University
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  /* ── MOBILE NAV ── */
+  function toggleMobileMenu() {
+    const menu = document.getElementById('navMobileMenu');
+    const btn = document.getElementById('navHamburger');
+    menu.classList.toggle('open');
+    btn.classList.toggle('open');
+  }
+  function closeMobileMenu() {
+    document.getElementById('navMobileMenu').classList.remove('open');
+    document.getElementById('navHamburger').classList.remove('open');
+  }
+  // Close on outside click
+  document.addEventListener('click', e => {
+    const menu = document.getElementById('navMobileMenu');
+    const btn = document.getElementById('navHamburger');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !btn.contains(e.target)) {
+      closeMobileMenu();
+    }
+  });
+
   /* ── FILTER ── */
   function filter(tag, btn) {
     document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
