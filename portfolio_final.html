@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Prakash Rithwik Karry — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg1: #050510;
+      --bg2: #0a0820;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.09);
+      --glass-hover: rgba(255,255,255,0.07);
+      --text: #e8e6f0;
+      --muted: rgba(255,255,255,0.38);
+      --accent: #a78bfa;
+      --accent2: #38bdf8;
+      --accent3: #34d399;
+      --mono: 'JetBrains Mono', monospace;
+      --sans: 'Outfit', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg1);
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .bg-canvas {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 60% at 10% 20%, rgba(139,92,246,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 90% 80%, rgba(56,189,248,0.14) 0%, transparent 55%),
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(52,211,153,0.06) 0%, transparent 60%),
+        linear-gradient(160deg, #050510 0%, #0a0820 50%, #060612 100%);
+    }
+    .bg-grid {
+      position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.03;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .glass {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 1.2rem; left: 50%; transform: translateX(-50%);
+      z-index: 100;
+      display: flex; align-items: center; gap: 0;
+      padding: 0.5rem 0.5rem;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      white-space: nowrap;
+    }
+    .nav-logo {
+      font-family: var(--mono); font-size: 0.8rem; font-weight: 500;
+      color: var(--accent); padding: 0.4rem 1.2rem;
+      border-right: 1px solid var(--glass-border);
+      letter-spacing: 0.06em;
+    }
+    .nav-links { display: flex; list-style: none; }
+    .nav-links a {
+      display: block; padding: 0.45rem 1rem;
+      font-size: 0.8rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; border-radius: 50px;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); background: rgba(255,255,255,0.07); }
+
+    .wrapper { position: relative; z-index: 1; }
+
+    /* ── HERO ── */
+    #home {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      padding-top: 72px;
+      position: relative;
+    }
+    #home .hero-left { grid-column: 1; grid-row: 1; }
+    #home .hero-right { grid-column: 2; grid-row: 1; }
+    #home .hero-skills-bar { grid-column: 1 / -1; grid-row: 2; }
+    #home .scroll-hint {
+      grid-column: 1 / -1; grid-row: 3;
+      position: static; transform: none;
+      left: auto; bottom: auto;
+      padding: 0.5rem 0 0.8rem;
+    }
+
+    /* ── HERO SKILLS BAR ── */
+    .hero-skills-bar {
+      padding: 0 3rem 0.8rem;
+    }
+    .hero-skills-bar-header {
+      display: flex; align-items: center; justify-content: center; gap: 1rem;
+      margin-bottom: 1rem;
+      padding-top: 0.8rem;
+    }
+    .hero-skills-bar-title {
+      font-family: var(--mono); font-size: 0.7rem; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--accent);
+      white-space: nowrap;
+    }
+    .hero-skills-bar-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, transparent, var(--accent) 40%, var(--accent2) 60%, transparent);
+      box-shadow: 0 0 6px rgba(167,139,250,0.5), 0 0 14px rgba(56,189,248,0.25);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    .hero-skills-bar-line:first-child {
+      background: linear-gradient(to left, transparent, var(--accent) 40%, var(--accent2) 60%, transparent);
+    }
+    .hero-skills-bar-cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0;
+    }
+    .hero-skills-bar-col {
+      padding: 0 2rem 0.8rem 0;
+      text-align: center;
+    }
+    .hero-skills-bar-col:first-child {
+      padding-right: 2rem;
+      position: relative;
+    }
+    .hero-skills-bar-col:first-child::after {
+      content: '';
+      position: absolute;
+      right: 0; top: 5%; bottom: 5%;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent 0%, var(--accent) 30%, var(--accent2) 70%, transparent 100%);
+      box-shadow: 0 0 8px rgba(167,139,250,0.6), 0 0 20px rgba(56,189,248,0.3);
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+    .hero-skills-bar-col:last-child {
+      padding-left: 2rem;
+      padding-right: 0;
+    }
+
+    .hero-left {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      padding: 4rem 3rem 1.5rem;
+      position: relative;
+    }
+    @keyframes glowPulse {
+      0%,100% { opacity: 0.5; box-shadow: 0 0 8px rgba(167,139,250,0.4), 0 0 20px rgba(56,189,248,0.2); }
+      50%      { opacity: 1;   box-shadow: 0 0 14px rgba(167,139,250,0.8), 0 0 35px rgba(56,189,248,0.4); }
+    }
+    .hero-avatar-wrap {
+      position: relative; margin-bottom: 1.2rem;
+    }
+    .hero-avatar-ring {
+      width: 260px; height: 260px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2), var(--accent3));
+      padding: 3px;
+      animation: ringPulse 3s ease-in-out infinite;
+    }
+    @keyframes ringPulse {
+      0%,100% { box-shadow: 0 0 20px rgba(167,139,250,0.3); }
+      50%      { box-shadow: 0 0 50px rgba(167,139,250,0.6), 0 0 80px rgba(56,189,248,0.2); }
+    }
+    .hero-avatar-inner {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: linear-gradient(135deg, #1a1030, #0d1a2e);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; font-size: 5rem;
+    }
+    .hero-avatar-inner img {
+      width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+    }
+    .hero-name {
+      font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+      font-weight: 700; letter-spacing: -0.02em; text-align: center;
+      background: linear-gradient(135deg, #fff 30%, var(--accent) 80%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+    .hero-role {
+      font-size: 1.1rem; color: var(--muted); font-weight: 400;
+      text-align: center; letter-spacing: 0.02em; line-height: 1.5;
+    }
+    .hero-role span { color: var(--accent2); font-weight: 500; }
+    .hero-socials {
+      display: flex; gap: 1rem; margin-top: 1.2rem;
+      justify-content: center;
+    }
+    .hero-social-link {
+      display: flex; align-items: center; justify-content: center;
+      width: 42px; height: 42px; border-radius: 10px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .hero-social-link svg { width: 18px; height: 18px; }
+    .hero-social-link:hover {
+      color: #fff;
+      background: rgba(167,139,250,0.15);
+      border-color: rgba(167,139,250,0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 0 16px rgba(167,139,250,0.35);
+    }
+
+    .hero-right {
+      display: flex; flex-direction: column;
+      justify-content: flex-start;
+      padding: 4rem 4rem 1.5rem 3.5rem;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.35rem 1rem; border-radius: 50px;
+      font-family: var(--mono); font-size: 0.72rem; color: var(--accent3);
+      background: rgba(52,211,153,0.08); border: 1px solid rgba(52,211,153,0.2);
+      width: fit-content; margin-bottom: 1rem;
+    }
+    .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent3); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+
+    .hero-greeting {
+      font-size: clamp(1.9rem, 3vw, 2.8rem);
+      font-weight: 700; letter-spacing: -0.02em;
+      line-height: 1.15; margin-bottom: 1rem;
+    }
+    .hero-greeting span { color: var(--accent); }
+
+    .hero-desc {
+      font-size: 0.96rem; color: var(--muted); line-height: 1.85;
+      font-weight: 300; margin-bottom: 1.6rem; max-width: 460px;
+      text-align: justify;
+    }
+    .hero-btns { display: flex; gap: 0.8rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .btn { padding: 0.6rem 1.5rem; border-radius: 50px; font-size: 0.85rem; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.25s; border: none; font-family: var(--sans); display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-glow { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; box-shadow: 0 0 24px rgba(167,139,250,0.35), 0 4px 15px rgba(0,0,0,0.3); }
+    .btn-glow:hover { box-shadow: 0 0 40px rgba(167,139,250,0.55); transform: translateY(-2px); }
+    .btn-ghost { background: var(--glass); border: 1px solid var(--glass-border); color: var(--text); backdrop-filter: blur(10px); }
+    .btn-ghost:hover { background: var(--glass-hover); transform: translateY(-2px); }
+
+    .scroll-hint { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; }
+    .scroll-line { width: 1px; height: 28px; background: linear-gradient(to bottom, var(--accent), transparent); animation: scrollAnim 1.8s ease-in-out infinite; }
+    @keyframes scrollAnim { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 2rem; position: relative; z-index: 1; }
+    .section-tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+    h2 { font-size: clamp(2rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.03em; margin-bottom: 1rem; line-height: 1.1; }
+    .section-sub { color: var(--muted); max-width: 480px; font-weight: 300; line-height: 1.7; }
+    #contact .section-sub { margin: 0 auto; }
+
+    .skills-label { font-family: var(--mono); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.4rem; }
+    .skills-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.7rem; justify-content: center; }
+    .chip { padding: 0.35rem 0.9rem; border-radius: 50px; font-size: 0.78rem; font-weight: 500; background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.18); color: var(--accent); transition: all 0.2s; }
+    .chip:hover { background: rgba(167,139,250,0.15); transform: translateY(-1px); }
+    .chip.blue { background: rgba(56,189,248,0.08); border-color: rgba(56,189,248,0.18); color: var(--accent2); }
+    .chip.blue:hover { background: rgba(56,189,248,0.15); }
+    .chip.green { background: rgba(52,211,153,0.08); border-color: rgba(52,211,153,0.18); color: var(--accent3); }
+    .chip.green:hover { background: rgba(52,211,153,0.15); }
+
+    /* ── EXPERIENCE ── */
+    #experience { max-width: 1200px; margin: 0 auto; }
+    .timeline { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; }
+    .exp-card { padding: 2rem; border-radius: 20px; background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); transition: border-color 0.3s, transform 0.3s; display: grid; grid-template-columns: auto 1fr; gap: 1.5rem; }
+    .exp-card:hover { border-color: rgba(167,139,250,0.3); transform: translateX(4px); }
+    .exp-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(56,189,248,0.2)); border: 1px solid rgba(167,139,250,0.2); flex-shrink: 0; }
+    .exp-role { font-weight: 700; font-size: 1rem; margin-bottom: 0.2rem; }
+    .exp-org { color: var(--accent2); font-size: 0.85rem; margin-bottom: 0.2rem; font-weight: 500; }
+    .exp-period { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); margin-bottom: 0.8rem; }
+    .exp-bullets { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .exp-bullets li { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; font-weight: 300; padding-left: 1.2rem; position: relative; }
+    .exp-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--accent); font-size: 0.7rem; top: 0.15rem; }
+
+    /* ── PROJECTS ── */
+    #projects { max-width: 1200px; margin: 0 auto; }
+    .proj-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem; }
+    .filter-bar { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .f-btn { padding: 0.35rem 1rem; border-radius: 50px; font-size: 0.75rem; font-weight: 500; cursor: pointer; border: 1px solid var(--glass-border); background: transparent; color: var(--muted); font-family: var(--sans); transition: all 0.2s; }
+    .f-btn.active, .f-btn:hover { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.4); color: var(--accent); }
+
+    .proj-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .proj-card { border-radius: 20px; overflow: hidden; background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s; cursor: pointer; display: flex; flex-direction: column; }
+    .proj-card:hover { transform: translateY(-8px); border-color: rgba(167,139,250,0.35); box-shadow: 0 24px 48px rgba(0,0,0,0.4), 0 0 30px rgba(167,139,250,0.08); }
+    .proj-card.featured { grid-column: span 1; }
+    .proj-visual { height: 220px; min-height: unset; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; position: relative; overflow: hidden; }
+    .proj-visual::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(56,189,248,0.15)); }
+    .proj-visual img ~ .proj-emoji { display: none; }
+    .proj-visual.green::before { background: linear-gradient(135deg, rgba(52,211,153,0.15), rgba(56,189,248,0.12)); }
+    .proj-visual.pink::before { background: linear-gradient(135deg, rgba(244,114,182,0.15), rgba(167,139,250,0.15)); }
+    .proj-visual.orange::before { background: linear-gradient(135deg, rgba(251,146,60,0.15), rgba(244,114,182,0.12)); }
+    .proj-body { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+    .proj-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.8rem; }
+    .p-tag { font-family: var(--mono); font-size: 0.65rem; padding: 0.15rem 0.55rem; border-radius: 4px; background: rgba(167,139,250,0.1); color: var(--accent); border: 1px solid rgba(167,139,250,0.15); }
+    .p-tag.teal { background: rgba(52,211,153,0.1); color: var(--accent3); border-color: rgba(52,211,153,0.15); }
+    .p-tag.blue { background: rgba(56,189,248,0.1); color: var(--accent2); border-color: rgba(56,189,248,0.15); }
+    .p-tag.gold { background: rgba(251,191,36,0.12); color: #fbbf24; border-color: rgba(251,191,36,0.3); font-weight: 600; letter-spacing: 0.03em; }
+    .proj-title { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.3; }
+    .proj-desc { color: var(--muted); font-size: 0.82rem; line-height: 1.65; margin-bottom: 0; font-weight: 300; flex: 1; }
+    .proj-link { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; transition: gap 0.2s; background: none; border: none; cursor: pointer; padding: 0; margin-top: auto; padding-top: 1.2rem; }
+    .proj-link:hover { gap: 0.7rem; }
+    .proj-link::after { content: '→'; }
+    .proj-links { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; margin-top: auto; }
+
+    /* ── PUBLICATIONS ── */
+    #publications { max-width: 1200px; margin: 0 auto; }
+    .pub-card { margin-top: 2rem; padding: 2rem; border-radius: 20px; background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); transition: border-color 0.3s, transform 0.3s; }
+    .pub-card:hover { border-color: rgba(167,139,250,0.3); transform: translateY(-4px); }
+    .pub-badge { display: inline-flex; align-items: center; gap: 0.4rem; padding: 0.3rem 0.8rem; border-radius: 50px; font-family: var(--mono); font-size: 0.68rem; background: rgba(251,191,36,0.1); border: 1px solid rgba(251,191,36,0.25); color: #fbbf24; margin-bottom: 1rem; }
+    .pub-title { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; line-height: 1.4; }
+    .pub-venue { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2); margin-bottom: 0.8rem; }
+    .pub-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.65; font-weight: 300; }
+    .pub-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; font-family: var(--mono); font-size: 0.75rem; color: var(--accent); text-decoration: none; transition: gap 0.2s; }
+    .pub-link:hover { gap: 0.7rem; }
+    .pub-link::after { content: '→'; }
+
+    /* ── CERTIFICATES ── */
+    #certificates { max-width: 1200px; margin: 0 auto; }
+    .certs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; margin-top: 3rem; }
+    .cert-card { padding: 1.5rem; border-radius: 16px; background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(20px); display: flex; align-items: center; gap: 1.1rem; transition: transform 0.25s, border-color 0.25s; }
+    .cert-card:hover { transform: translateY(-4px); border-color: rgba(167,139,250,0.3); }
+    .cert-icon { width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(56,189,248,0.2)); border: 1px solid rgba(167,139,250,0.2); }
+    .cert-name { font-weight: 600; font-size: 0.88rem; margin-bottom: 0.2rem; }
+    .cert-org { color: var(--muted); font-size: 0.75rem; }
+
+    /* ── CONTACT ── */
+    #contact { max-width: 800px; margin: 0 auto; text-align: center; }
+    .contact-card { margin-top: 3rem; padding: 3rem; border-radius: 24px; background: var(--glass); border: 1px solid var(--glass-border); backdrop-filter: blur(30px); box-shadow: 0 0 80px rgba(139,92,246,0.08); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .field { border-radius: 12px; overflow: hidden; border: 1px solid var(--glass-border); background: rgba(255,255,255,0.03); transition: border-color 0.2s; }
+    .field:focus-within { border-color: rgba(167,139,250,0.5); }
+    .field label { display: block; padding: 0.6rem 1rem 0; font-family: var(--mono); font-size: 0.62rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+    input, textarea { width: 100%; background: transparent; border: none; outline: none; padding: 0.3rem 1rem 0.8rem; color: var(--text); font-family: var(--sans); font-size: 0.9rem; }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.2); }
+    textarea { resize: none; min-height: 110px; }
+    .send-btn { align-self: center; padding: 0.85rem 3rem; border-radius: 50px; border: none; cursor: pointer; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; box-shadow: 0 0 30px rgba(167,139,250,0.3); transition: all 0.25s; }
+    .send-btn:hover { box-shadow: 0 0 50px rgba(167,139,250,0.5); transform: translateY(-2px); }
+    .contact-info { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+    .contact-info a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .contact-info a:hover { color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer { position: relative; z-index: 1; border-top: 1px solid var(--glass-border); text-align: center; padding: 2rem; font-size: 0.78rem; color: var(--muted); font-family: var(--mono); }
+    footer span { color: var(--accent); }
+
+    /* ── ORBS ── */
+    .orb { position: fixed; border-radius: 50%; filter: blur(80px); pointer-events: none; z-index: 0; opacity: 0.25; }
+    .orb1 { width: 400px; height: 400px; background: var(--accent); top: -100px; left: -100px; animation: drift 12s ease-in-out infinite alternate; }
+    .orb2 { width: 350px; height: 350px; background: var(--accent2); bottom: 10%; right: -80px; animation: drift 14s ease-in-out infinite alternate-reverse; }
+    .orb3 { width: 300px; height: 300px; background: var(--accent3); top: 50%; left: 40%; animation: drift 10s ease-in-out infinite alternate; opacity: 0.12; }
+    @keyframes drift { from { transform: translate(0,0); } to { transform: translate(30px,40px); } }
+
+    /* ── REVEAL ── */
+    @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: none; } }
+    .reveal { opacity: 1; }
+    .reveal.animate { animation: fadeUp 0.6s ease both; }
+
+    /* ══════════════════════════════════════════
+       ── PROJECT MODAL ──
+    ══════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(5, 5, 16, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .modal-overlay.open {
+      opacity: 1; pointer-events: all;
+    }
+    .modal {
+      width: 100%; max-width: 900px;
+      max-height: 90vh;
+      border-radius: 24px;
+      background: rgba(14, 12, 30, 0.95);
+      border: 1px solid rgba(167,139,250,0.2);
+      box-shadow: 0 0 80px rgba(139,92,246,0.15), 0 40px 80px rgba(0,0,0,0.6);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      transform: translateY(24px) scale(0.97);
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+      opacity: 0;
+    }
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    /* Left panel — visual */
+    .modal-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+      background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(56,189,248,0.10));
+      border-right: 1px solid rgba(167,139,250,0.12);
+      overflow: hidden;
+      min-height: 340px;
+    }
+    .modal-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 30% 40%, rgba(139,92,246,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 70% 70%, rgba(56,189,248,0.12) 0%, transparent 70%);
+    }
+    .modal-visual-emoji {
+      font-size: 5rem;
+      position: relative; z-index: 1;
+      filter: drop-shadow(0 0 24px rgba(167,139,250,0.4));
+      animation: floatEmoji 4s ease-in-out infinite;
+    }
+    @keyframes floatEmoji {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .modal-visual img,
+    .modal-visual video,
+    .modal-visual gif-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      position: absolute; inset: 0;
+      z-index: 1;
+    }
+
+    /* Right panel — content */
+    .modal-content {
+      padding: 2.5rem 2rem 2rem;
+      display: flex; flex-direction: column;
+      overflow-y: auto;
+      max-height: 90vh;
+    }
+    .modal-content::-webkit-scrollbar { width: 4px; }
+    .modal-content::-webkit-scrollbar-track { background: transparent; }
+    .modal-content::-webkit-scrollbar-thumb { background: rgba(167,139,250,0.3); border-radius: 4px; }
+
+    .modal-close {
+      position: absolute; top: 1.2rem; right: 1.2rem; z-index: 10;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: var(--muted);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem;
+      transition: all 0.2s;
+    }
+    .modal-close:hover {
+      background: rgba(167,139,250,0.15);
+      border-color: rgba(167,139,250,0.4);
+      color: #fff;
+      transform: rotate(90deg);
+    }
+
+    .modal-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .modal-title {
+      font-size: 1.4rem; font-weight: 700; line-height: 1.25;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #fff 40%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .modal-divider {
+      width: 40px; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 2px;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 8px rgba(167,139,250,0.5);
+    }
+    .modal-desc {
+      color: var(--muted); font-size: 0.88rem;
+      line-height: 1.8; font-weight: 300;
+      flex: 1;
+    }
+    .modal-highlights {
+      margin-top: 1.4rem;
+    }
+    .modal-highlights-label {
+      font-family: var(--mono); font-size: 0.62rem;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+    .modal-highlights ul {
+      list-style: none; display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .modal-highlights li {
+      font-size: 0.82rem; color: rgba(255,255,255,0.5);
+      padding-left: 1.2rem; position: relative; line-height: 1.6;
+    }
+    .modal-highlights li::before {
+      content: '▸'; position: absolute; left: 0;
+      color: var(--accent2); font-size: 0.65rem; top: 0.18rem;
+    }
+    .modal-actions {
+      margin-top: 1.8rem; display: flex; gap: 0.7rem; flex-wrap: wrap;
+    }
+    .modal-btn {
+      padding: 0.55rem 1.3rem; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer;
+      text-decoration: none; transition: all 0.22s; border: none;
+      font-family: var(--sans); display: inline-flex; align-items: center; gap: 0.45rem;
+    }
+    .modal-btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 0 20px rgba(167,139,250,0.3);
+    }
+    .modal-btn-primary:hover { box-shadow: 0 0 35px rgba(167,139,250,0.5); transform: translateY(-2px); }
+    .modal-btn-ghost {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+    }
+    .modal-btn-ghost:hover { background: rgba(255,255,255,0.09); color: var(--text); transform: translateY(-2px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      #home { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 80px; }
+      #home .hero-left { grid-column: 1; grid-row: 1; border-bottom: 1px solid var(--glass-border); padding: 3rem 2rem; }
+      #home .hero-right { grid-column: 1; grid-row: 2; padding: 3rem 2rem; }
+      #home .scroll-hint { grid-row: 4; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .proj-card.featured { grid-column: span 1; }
+      .certs-grid { grid-template-columns: 1fr 1fr; }
+      .exp-card { grid-template-columns: 1fr; }
+      .exp-icon { display: none; }
+      .modal { grid-template-columns: 1fr; max-height: 85vh; }
+      .modal-visual { min-height: 220px; border-right: none; border-bottom: 1px solid rgba(167,139,250,0.12); }
+    }
+    @media (max-width: 640px) {
+      nav { width: calc(100% - 2rem); }
+      .nav-links { display: none; }
+      .proj-grid { grid-template-columns: 1fr; }
+      .certs-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-avatar-ring { width: 180px; height: 180px; }
+      .modal { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-canvas"></div>
+<div class="bg-grid"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="projectModal" onclick="closeModalOnOverlay(event)">
+  <div class="modal" id="modalInner">
+    <button class="modal-close" onclick="closeModal()" title="Close">✕</button>
+
+    <!-- Left: Visual -->
+    <div class="modal-visual" id="modalVisual">
+      <span class="modal-visual-emoji" id="modalEmoji"></span>
+    </div>
+
+    <!-- Right: Content -->
+    <div class="modal-content">
+      <div class="modal-tags" id="modalTags"></div>
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-divider"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-highlights" id="modalHighlights" style="display:none;">
+        <div class="modal-highlights-label">// Key Highlights</div>
+        <ul id="modalHighlightsList"></ul>
+      </div>
+      <div class="modal-actions">
+        <a href="#" class="modal-btn modal-btn-primary" id="modalPaperBtn" target="_blank" style="display:none;">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          View Paper
+        </a>
+        <a href="#" class="modal-btn modal-btn-primary" id="modalGithubBtn" target="_blank" style="display:none;">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          GitHub
+        </a>
+        <button class="modal-btn modal-btn-ghost" onclick="closeModal()">
+          ← Back
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="wrapper">
+
+<!-- HERO -->
+<section id="home">
+
+  <div class="hero-left">
+    <div class="hero-avatar-wrap">
+      <div class="hero-avatar-ring">
+        <div class="hero-avatar-inner">
+          <img src="/Users/rithwikkp1612/Desktop/Website/image.jpg" alt="Prakash Rithwik Karry"/>
+        </div>
+      </div>
+    </div>
+    <h1 class="hero-name">Prakash Rithwik Karry</h1>
+    <p class="hero-role"><span>Robotics &amp; Autonomous Systems Engineer</span><br/>Purdue University · M.S. 2024–2026</p>
+    <div class="hero-socials">
+      <a href="/cdn-cgi/l/email-protection#0e7c677a66796765657e3f383f3c4e69636f6762206d6163" class="hero-social-link" title="Email">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+      </a>
+      <a href="https://github.com/kprithwik1612" target="_blank" class="hero-social-link" title="GitHub">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+      <a href="http://linkedin.com/in/kprithwik" target="_blank" class="hero-social-link" title="LinkedIn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 23.2 24 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Open to opportunities · West Lafayette, IN
+    </div>
+    <h2 class="hero-greeting">Building robots that<br/><span>see, think &amp; fly.</span></h2>
+    <p class="hero-desc">
+      I've always been fascinated by machines that move with purpose.
+      I work on building intelligent robotic systems that perceive, learn, and act in complex environments. From modular flapping-wing UAVs to reinforcement learning based autonomous driving and LiDAR–vision fusion, I design autonomy across the full stack. I'm motivated by the challenge of creating systems that don't just function but adapt, reason, and operate confidently in the real world.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-glow">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        View Projects
+      </a>
+      <a href="rithwik_resume.pdf" download="Rithwik_Resume.pdf" class="btn btn-ghost">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-4-4m4 4l4-4M3 17v2a2 2 0 002 2h14a2 2 0 002-2v-2"/></svg>
+        Download Resume
+      </a>
+    </div>
+  </div>
+
+  <!-- SKILLS BAR -->
+  <div class="hero-skills-bar">
+    <div class="hero-skills-bar-header">
+      <div class="hero-skills-bar-line"></div>
+      <div class="hero-skills-bar-title">// Skills</div>
+      <div class="hero-skills-bar-line"></div>
+    </div>
+    <div class="hero-skills-bar-cols">
+      <div class="hero-skills-bar-col">
+        <div class="skills-label">// Programming</div>
+        <div class="skills-chips">
+          <span class="chip blue">Python</span>
+          <span class="chip blue">C</span>
+          <span class="chip blue">C++</span>
+          <span class="chip blue">MATLAB</span>
+          <span class="chip blue">Simulink</span>
+          <span class="chip blue">SQL</span>
+        </div>
+        <div class="skills-label">// Frameworks</div>
+        <div class="skills-chips">
+          <span class="chip green">PyTorch</span>
+          <span class="chip green">TensorFlow</span>
+          <span class="chip green">OpenCV</span>
+          <span class="chip green">MuJoCo</span>
+          <span class="chip green">MediaPipe</span>
+        </div>
+      </div>
+      <div class="hero-skills-bar-col">
+        <div class="skills-label">// Technical Skills</div>
+        <div class="skills-chips">
+          <span class="chip">ROS2 Humble</span>
+          <span class="chip">Nav2</span>
+          <span class="chip">MicroROS</span>
+          <span class="chip">Git</span>
+          <span class="chip">Linux</span>
+        </div>
+        <div class="skills-label">// Hardware & Design</div>
+        <div class="skills-chips">
+          <span class="chip blue">CAD</span>
+          <span class="chip blue">3D Printing</span>
+          <span class="chip blue">Flutter</span>
+          <span class="chip blue">STM32</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="proj-header">
+    <div>
+      <div class="section-tag">// projects</div>
+      <h2>Featured Work</h2>
+    </div>
+    <div class="filter-bar">
+      <button class="f-btn active" onclick="filter('all',this)">All</button>
+      <button class="f-btn" onclick="filter('embedded',this)">Embedded</button>
+      <button class="f-btn" onclick="filter('ros',this)">ROS2</button>
+      <button class="f-btn" onclick="filter('cv',this)">Vision/AI</button>
+      <button class="f-btn" onclick="filter('uav',this)">UAV</button>
+    </div>
+  </div>
+  <div class="proj-grid" id="pgrid">
+
+
+    <!-- PROJECT 1 — LiDAR–Vision Fusion with VLM -->
+    <div class="proj-card reveal" data-tags="cv ros"
+      data-modal-emoji="👁️"
+      data-modal-media-src=""
+      data-modal-title="LiDAR–Vision Fusion with VLM"
+      data-modal-tags='[{"label":"LiDAR","type":"teal"},{"label":"VLM","type":"blue"},{"label":"Fusion","type":""}]'
+      data-modal-desc="A modular perception pipeline that injects LiDAR geometric features into a frozen Qwen2-VL Vision-Language Model, enabling geometry-aware scene reasoning for autonomous driving. By representing LiDAR point clouds as structured depth cues and projecting them into the VLM's visual token space, the system improves spatial reasoning over camera-only baselines — evaluated on nuScenes-mini with controlled binary QA tasks designed to isolate geometry-sensitive questions."
+      data-modal-highlights='["Designed LiDAR front-view projection pipeline with range, intensity, and height encodings","Integrated geometry cues into frozen Qwen2-VL without any model fine-tuning","Constructed binary geometry-sensitive QA benchmark on nuScenes-mini","Demonstrated measurable improvement in spatial reasoning over vision-only baseline"]'>
+      <div class="proj-visual" id="proj-visual-5">
+        <img src="/Users/rithwikkp1612/Desktop/Website/lidar.gif" alt="LiDAR Fusion" style="width:100%;height:100%;object-fit:cover;"/> 
+        <span class="proj-emoji">👁️</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="p-tag teal">LiDAR</span><span class="p-tag blue">VLM</span><span class="p-tag">Fusion</span></div>
+        <div class="proj-title">LiDAR–Vision Fusion with VLM</div>
+        <p class="proj-desc">Designed and implemented a modular pipeline that injects LiDAR geometry into a frozen Qwen2-VL model to improve scene reasoning in autonomous driving. Evaluated on nuScenes-mini with controlled binary QA tasks to measure geometry-sensitive reasoning improvements.</p>
+        <button class="proj-link" onclick="openModal(this.closest('.proj-card'))">View Project</button>
+      </div>
+    </div>
+
+    
+
+    <!-- PROJECT 2 — Flapping Wing UAV -->
+    <div class="proj-card reveal" data-tags="uav embedded"
+      data-modal-emoji="🪁"
+      data-modal-media-src=""
+      data-modal-title="Flapping Wing UAV — Modular Powertrain"
+      data-modal-tags='[{"label":"🏆 Publication","type":"gold"},{"label":"CAD","type":""},{"label":"3D Printing","type":"teal"}]'
+      data-modal-paper-url="https://www.researchgate.net/publication/383242900_Design_and_Analysis_of_a_Modular_Flapping_Wing_Robot_with_a_Swappable_Powertrain_Module"
+      data-modal-desc="A novel prototype Flapping Wing UAV (FWUAV) featuring a fully swappable powertrain module that enables rapid reconfiguration and field maintenance without disassembling the airframe. The modular architecture decouples the mechanical drive system from the wing and fuselage, significantly reducing maintenance turnaround time. This work was recognized as a Best Paper Finalist at IEEE ICMA 2024 in Tianjin, China."
+      data-modal-highlights='["Best Paper Finalist — IEEE ICMA 2024, Tianjin, China","Designed fully modular powertrain with tool-free swapping mechanism","Conducted aerodynamic analysis and structural validation using CAD simulation","Prototyped multiple powertrain variants with 3D printing and iterative testing"]'>
+      <div class="proj-visual orange" id="proj-visual-2">
+        <img src="/Users/rithwikkp1612/Desktop/Website/flapwing2.gif" alt="Flapping Wing UAV" style="width:100%;height:100%;object-fit:cover;"/> 
+        <span class="proj-emoji">🪁</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="p-tag gold">🏆 Publication</span>
+          <span class="p-tag">CAD</span><span class="p-tag teal">3D Printing</span>
+        </div>
+        <div class="proj-title">Flapping Wing UAV — Modular Powertrain</div>
+        <p class="proj-desc">Prototype Flapping Wing UAV with a swappable powertrain module. Awarded the Best Paper Finalist at IEEE ICMA 2024, Tianjin, China.</p>
+        <!-- TWO BUTTONS: View Paper (external link) + View Project (opens modal) -->
+        <div class="proj-links">
+          <a class="proj-link" href="https://www.researchgate.net/publication/383242900_Design_and_Analysis_of_a_Modular_Flapping_Wing_Robot_with_a_Swappable_Powertrain_Module" target="_blank">View Paper</a>
+          <button class="proj-link" onclick="openModal(this.closest('.proj-card'))">View Project</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PROJECT 3 — Gesture Controlled Robotic Arm -->
+    <div class="proj-card featured reveal" data-tags="embedded cv"
+      data-modal-emoji="🦾"
+      data-modal-media-src=""
+      data-modal-title="Gesture Controlled Robotic Arm"
+      data-modal-tags='[{"label":"STM32","type":""},{"label":"OpenCV","type":"blue"},{"label":"MediaPipe","type":"teal"},{"label":"C++","type":""}]'
+      data-modal-desc="A real-time robotic arm manipulator that bridges human gesture control with precise mechanical actuation. The system integrates an STM32 microcontroller with a computer vision pipeline built on OpenCV and MediaPipe for robust hand landmark detection. Gesture states are translated into servo motor commands transmitted over UART, enabling fluid, intuitive control with remarkably low latency."
+      data-modal-highlights='["Achieved 95% gesture recognition accuracy across diverse lighting and hand orientations","Designed custom UART communication protocol for deterministic, low-latency command delivery","Implemented MediaPipe hand landmark detection pipeline with real-time confidence thresholding","Calibrated servo feedback loops on STM32 for smooth, overshoot-free positioning"]'>
+      <div class="proj-visual" id="proj-visual-1">
+        <img src="/Users/rithwikkp1612/Desktop/Website/gesture.gif" alt="Gesture Controlled Robot"
+             style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;"/>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags">
+          <span class="p-tag">STM32</span><span class="p-tag blue">OpenCV</span>
+          <span class="p-tag teal">MediaPipe</span><span class="p-tag">C++</span>
+        </div>
+        <div class="proj-title">Gesture Controlled Robotic Arm</div>
+        <p class="proj-desc">Real-time robotic arm manipulator integrating STM32 microcontroller with OpenCV and MediaPipe hand tracking. Achieved 95% gesture recognition accuracy with precise motor control over UART.</p>
+        <button class="proj-link" onclick="openModal(this.closest('.proj-card'))">View Project</button>
+      </div>
+    </div>
+
+
+    
+
+    <!-- PROJECT 4 — Deep RL for Autonomous Driving -->
+    <div class="proj-card reveal" data-tags="cv"
+      data-modal-emoji="🚗"
+      data-modal-media-src="/Users/rithwikkp1612/Desktop/Website/ppocar.gif"
+      data-modal-title="Deep RL for Autonomous Driving"
+      data-modal-tags='[{"label":"PPO","type":"teal"},{"label":"PyTorch","type":""},{"label":"Autonomous Driving","type":"blue"}]'
+      data-modal-desc="A vision-based autonomous driving pipeline powered by Proximal Policy Optimization (PPO), a leading actor-critic reinforcement learning algorithm. The agent learns a driving policy directly from pixel observations in a simulated environment, without any handcrafted rules. The system demonstrates emergent behaviors including lane-keeping, speed regulation, and reactive obstacle avoidance purely from reward signals."
+      data-modal-highlights='["Trained PPO agent from raw visual observations in a continuous driving simulation","Designed shaped reward function balancing speed, lane deviation, and collision avoidance","Implemented generalized advantage estimation (GAE) for stable policy gradient updates","Demonstrated robust policy transfer across varied track layouts"]'>
+      <div class="proj-visual green" id="proj-visual-4" style="padding:0;">
+        <img src="/Users/rithwikkp1612/Desktop/Website/ppocar.gif" alt="Deep RL Demo"
+             style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;"/>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="p-tag teal">PPO</span><span class="p-tag">PyTorch</span><span class="p-tag blue">Autonomous Driving</span></div>
+        <div class="proj-title">Deep RL for Autonomous Driving</div>
+        <p class="proj-desc">Vision-based autonomous driving pipeline using Proximal Policy Optimization (PPO) for policy learning in simulated environments.</p>
+        <button class="proj-link" onclick="openModal(this.closest('.proj-card'))">View Project</button>
+      </div>
+    </div>
+    
+
+    <!-- PROJECT 5 — Semi-Supervised Learning (FixMatch) -->
+    <div class="proj-card reveal" data-tags="cv"
+      data-modal-emoji="🧠"
+      data-modal-media-src=""
+      data-modal-title="Semi-Supervised Learning (FixMatch)"
+      data-modal-tags='[{"label":"PyTorch","type":"teal"},{"label":"FixMatch","type":""},{"label":"Semi-Supervised","type":"blue"}]'
+      data-modal-desc="A from-scratch PyTorch re-implementation of FixMatch, a state-of-the-art semi-supervised learning algorithm that exploits consistency regularization and pseudo-labeling with confidence thresholding. The implementation faithfully reproduces the original training dynamics and achieves competitive benchmark performance using only a small fraction of labeled examples, demonstrating the algorithm's label efficiency on CIFAR-10 and SVHN."
+      data-modal-highlights='["Reproduced FixMatch from scratch in PyTorch without reference code","Achieved competitive accuracy on CIFAR-10 (40 labels) and SVHN benchmarks","Implemented strong/weak augmentation pipeline with RandAugment","Performed ablation studies on confidence threshold and unlabeled batch ratios"]'>
+      <div class="proj-visual pink" id="proj-visual-3">
+        <img src="/Users/rithwikkp1612/Desktop/Website/fixmatch.png" alt="FixMatch" style="width:100%;height:100%;object-fit:cover;"/> 
+        <span class="proj-emoji">🧠</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="p-tag teal">PyTorch</span><span class="p-tag">FixMatch</span><span class="p-tag blue">Semi-Supervised</span></div>
+        <div class="proj-title">Semi-Supervised Learning (FixMatch)</div>
+        <p class="proj-desc">Implemented FixMatch from scratch in PyTorch, achieving competitive benchmarks on CIFAR-10 and SVHN with limited labeled data.</p>
+        <button class="proj-link" onclick="openModal(this.closest('.proj-card'))">View Project</button>
+      </div>
+    </div>
+
+    
+
+    <!-- A* Path Planning for TurtleBot3 Obstacle Avoidance -->
+    <div class="proj-card reveal" data-tags="ros"
+      data-modal-emoji="🗺️"
+      data-modal-media-src=""
+      data-modal-title="A* Path Planning for TurtleBot3 Obstacle Avoidance"
+      data-modal-tags='[{"label":"ROS2","type":"blue"},{"label":"Python","type":""},{"label":"RVIZ","type":"teal"},{"label":"Gazebo","type":"orange"}]'
+      data-modal-desc="Implemented a full ROS2 navigation pipeline for TurtleBot3 using the A* search algorithm to compute optimal, obstacle-free paths in a simulated environment. The system launches TurtleBot3 in Gazebo, accepts a goal pose through RViz, computes an A*-based path avoiding static obstacles, and uses a navigation node to guide the robot along that path in real time. It demonstrates autonomous navigation with visualization in RViz and Gazebo."
+      data-modal-highlights='["Implemented grid-based A* global path planner with Euclidean heuristic for optimal path generation","Deployed full simulation pipeline using Gazebo + RViz visualization","Designed occupancy grid representation for obstacle-aware planning","Achieved smooth goal-directed navigation with reliable obstacle avoidance"]'>
+      <div class="proj-visual green" id="proj-visual-7">
+        <img src="/Users/rithwikkp1612/Desktop/Website/turtle.gif" alt="Landing Module" style="width:100%;height:100%;object-fit:cover;"/> 
+        <span class="proj-emoji">🛬</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="p-tag blue">ROS2</span><span class="p-tag">Python</span><span class="p-tag teal">RVIZ</span><span class="p-tag red">Gazebo</span></div>
+        <div class="proj-title">A* Path Planning for TurtleBot3 Obstacle Avoidance</div>
+        <p class="proj-desc">Implemented an A*-based global path planner on a TurtleBot3 using ROS2 to autonomously navigate to defined goals while avoiding obstacles in a Gazebo simulation.</p>
+        <button class="proj-link" onclick="openModal(this.closest('.proj-card'))">View Project</button>
+      </div>
+    </div>
+
+    <!-- PROJECT 7 — Indoor MAV Navigation -->
+    <div class="proj-card reveal" data-tags="uav ros"
+      data-modal-emoji="🏠"
+      data-modal-media-src=""
+      data-modal-title="Indoor MAV Navigation (GPS-Denied)"
+      data-modal-tags='[{"label":"UWB RTLS","type":"blue"},{"label":"IMU Fusion","type":""},{"label":"GPS-Denied","type":"teal"}]'
+      data-modal-desc="An autonomous Micro Aerial Vehicle (MAV) deployment system designed for GPS-denied indoor environments. State estimation is achieved by tightly fusing Ultra-Wideband Real-Time Localization System (UWB RTLS) range measurements with IMU data using a complementary filter architecture. Safe navigation is enforced via a Velocity Obstacle (VO) based collision avoidance planner, enabling the MAV to operate reliably in cluttered indoor spaces for UTM applications."
+      data-modal-highlights='["Fused UWB RTLS and IMU data for robust indoor position and velocity estimation","Implemented Velocity Obstacle algorithm for real-time, reactive collision avoidance","Characterized and compensated for UWB multipath errors in complex indoor geometry","Demonstrated autonomous waypoint navigation in structured GPS-denied test environments"]'>
+      <div class="proj-visual orange" id="proj-visual-6">
+        <img src="/Users/rithwikkp1612/Desktop/Website/IndoorMAV.gif" alt="Indoor MAV" style="width:100%;height:100%;object-fit:cover;"/>
+        <span class="proj-emoji">🏠</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="p-tag blue">UWB RTLS</span><span class="p-tag">IMU Fusion</span><span class="p-tag teal">GPS-Denied</span></div>
+        <div class="proj-title">Indoor MAV Navigation (GPS-Denied)</div>
+        <p class="proj-desc">Autonomous MAV deployment in GPS-denied environments. UWB RTLS fused with IMU for state estimation and velocity obstacle-based collision avoidance for UTM.</p>
+        <button class="proj-link" onclick="openModal(this.closest('.proj-card'))">View Project</button>
+      </div>
+    </div>
+
+    <!-- PROJECT 8 — Landing Module Wearable UAV -->
+    <div class="proj-card reveal" data-tags="uav embedded"
+      data-modal-emoji="🛬"
+      data-modal-media-src=""
+      data-modal-title="Landing Module — Wearable Large UAV"
+      data-modal-tags='[{"label":"CAD","type":""},{"label":"Chassis Design","type":"blue"},{"label":"Wearable UAV","type":"teal"}]'
+      data-modal-desc="Design and structural testing of the landing module for a Wearable Large UAV at Arka Aerospace. The UAV features a re-configurable, modular chassis designed to be worn or deployed by a single operator. The landing module had to satisfy strict weight, footprint, and shock absorption constraints while maintaining structural integrity under varied landing dynamics, including angled and hard landings."
+      data-modal-highlights='["Designed landing module geometry and joint interface for tool-free field reconfiguration","Performed structural analysis and iterative refinement under simulated landing load cases","Validated energy absorption behavior through physical drop testing","Integrated module with the main UAV chassis interface for production prototype assembly"]'>
+      <div class="proj-visual pink" id="proj-visual-8">
+        <img src="/Users/rithwikkp1612/Desktop/Website/Elasticopter.png" alt="Landing Module" style="width:100%;height:100%;object-fit:cover;"/> 
+        <span class="proj-emoji">🛬</span>
+      </div>
+      <div class="proj-body">
+        <div class="proj-tags"><span class="p-tag">CAD</span><span class="p-tag blue">Chassis Design</span><span class="p-tag teal">Wearable UAV</span></div>
+        <div class="proj-title">Landing Module — Wearable Large UAV</div>
+        <p class="proj-desc">Designed and tested the landing module for a Wearable Large UAV with a re-configurable, modular chassis at Arka Aerospace.</p>
+        <button class="proj-link" onclick="openModal(this.closest('.proj-card'))">View Project</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="section-tag">// publications</div>
+  <h2>Research Publications</h2>
+  <p class="section-sub">Peer-reviewed work presented at international conferences.</p>
+  <div class="pub-card reveal">
+    <div class="pub-badge">🏆 Best Paper Finalist</div>
+    <div class="pub-title">Design and Analysis of a Modular Flapping Wing Robot with a Swappable Powertrain Module</div>
+    <div class="pub-venue">IEEE ICMA 2024 · Tianjin, China</div>
+    <p class="pub-desc">Presents a novel approach to designing and modeling a prototype Flapping Wing UAV with a modular, swappable powertrain. Explores the efficiency and versatility of modular design in flapping wing robots, enabling rapid reconfiguration and maintenance in field deployments.</p>
+    <a href="https://www.researchgate.net/publication/383242900_Design_and_Analysis_of_a_Modular_Flapping_Wing_Robot_with_a_Swappable_Powertrain_Module" target="_blank" class="pub-link">Read Paper</a>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-tag">// experience</div>
+  <h2>Work & Research</h2>
+  <p class="section-sub">From aerospace internships to university research labs — building real systems that fly, navigate, and see.</p>
+  <div class="timeline">
+
+    <div class="exp-card reveal">
+      <div class="exp-icon">🛸</div>
+      <div>
+        <div class="exp-role">Robotics Research Intern</div>
+        <div class="exp-org">IIIT Hyderabad — Hyderabad, India</div>
+        <div class="exp-period">Aug 2022 – May 2024</div>
+        <ul class="exp-bullets">
+          <li>Designed and modeled a prototype Flapping Wing UAV with a modular, swappable powertrain module using CAD and 3D printing — published as Best Paper Finalist at IEEE ICMA 2024.</li>
+          <li>Researched error estimation, navigation, and safe deployment of an autonomous MAV in GPS-denied indoor environments.</li>
+          <li>Developed an obstacle avoidance algorithm based on the velocity obstacle method for UTM and fused UWB RTLS with IMU for indoor state estimation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-icon">🚀</div>
+      <div>
+        <div class="exp-role">Project Engineer</div>
+        <div class="exp-org">Arka Aerospace — Hyderabad, India</div>
+        <div class="exp-period">May 2022 – July 2022</div>
+        <ul class="exp-bullets">
+          <li>Designed and tested the landing module for a Wearable Large UAV with a re-configurable chassis.</li>
+          <li>Developed robot navigation using ROS2 Humble and Nav2, integrating SLAM and LiDAR for autonomous mapping and path planning.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-card reveal">
+      <div class="exp-icon">⚗️</div>
+      <div>
+        <div class="exp-role">Undergraduate Researcher</div>
+        <div class="exp-org">NIT Calicut — Kerala, India</div>
+        <div class="exp-period">Jan 2022 – May 2022</div>
+        <ul class="exp-bullets">
+          <li>Synthesized BiFeO3 nanostructures using the Sol-Gel method and studied the effect of process parameters on their photocatalytic activities.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INVOLVEMENT -->
+<section id="certificates">
+  <div class="section-tag">// leadership & activities</div>
+  <h2>Involvement</h2>
+  <p class="section-sub">Community, leadership, and professional activities beyond the lab.</p>
+  <div class="certs-grid">
+    <div class="cert-card reveal"><div class="cert-icon">✈️</div><div><div class="cert-name">Joint Secretary</div><div class="cert-org">AeroUnwired Club, NIT Calicut — Aerial Robotics Workshops</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🎤</div><div><div class="cert-name">Head of Technical Workshop Committee</div><div class="cert-org">TATHVA — Annual Technical Fest, NIT Calicut</div></div></div>
+    <div class="cert-card reveal"><div class="cert-icon">🏆</div><div><div class="cert-name">Best Paper Finalist</div><div class="cert-org">IEEE ICMA 2024 — International Conference on Mechatronics & Automation</div></div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-tag">// contact</div>
+  <h2>Get In Touch</h2>
+  <p class="section-sub">Open to research collaborations, internships, and full-time opportunities in robotics and autonomy.</p>
+  <div class="contact-card reveal">
+    <div class="contact-form">
+      <div class="form-row">
+        <div class="field"><label>Name</label><input type="text" placeholder="Your name"/></div>
+        <div class="field"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
+      </div>
+      <div class="field"><label>Subject</label><input type="text" placeholder="Collaboration, opportunity, or just saying hi!"/></div>
+      <div class="field"><label>Message</label><textarea placeholder="Tell me about your project or opportunity..."></textarea></div>
+      <button class="send-btn">Send Message ✦</button>
+    </div>
+    <div class="contact-info">
+      <a href="mailto:rithwikkp1612@gmail.com">rithwikkp1612@gmail.com</a>
+      <a href="tel:+17657013197">+1 (765) 701-3197</a>
+      <a href="https://www.linkedin.com/in/kprithwik/" target="_blank">linkedin.com/in/kprithwik</a>
+      <span style="color:var(--muted);">West Lafayette, IN</span>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<footer>
+  Built by <span>Prakash Rithwik Karry</span> · 2025 · Purdue University
+</footer>
+
+<script>
+  /* ── FILTER ── */
+  function filter(tag, btn) {
+    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.proj-card').forEach(card => {
+      const show = tag === 'all' || card.dataset.tags.includes(tag);
+      card.style.display = show ? '' : 'none';
+      if (show) card.style.animation = 'fadeUp 0.4s ease both';
+    });
+  }
+
+  /* ── REVEAL ── */
+  const io = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        e.target.style.animationDelay = (i * 0.07) + 's';
+        e.target.classList.add('animate');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  /* ── HIDE EMOJI WHEN IMAGE IS PRESENT ── */
+  document.querySelectorAll('.proj-visual').forEach(visual => {
+    const img = visual.querySelector('img');
+    const emoji = visual.querySelector('.proj-emoji');
+    if (img && emoji) emoji.style.display = 'none';
+  });
+
+  /* ── MODAL ── */
+  const overlay = document.getElementById('projectModal');
+
+  function openModal(card) {
+    const d = card.dataset;
+
+    // ── Tags ──
+    const tagsEl = document.getElementById('modalTags');
+    tagsEl.innerHTML = '';
+    try {
+      JSON.parse(d.modalTags).forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'p-tag' + (t.type ? ' ' + t.type : '');
+        span.textContent = t.label;
+        tagsEl.appendChild(span);
+      });
+    } catch(e) {}
+
+    // ── Title ──
+    document.getElementById('modalTitle').textContent = d.modalTitle || '';
+
+    // ── Description ──
+    document.getElementById('modalDesc').textContent = d.modalDesc || '';
+
+    // ── Highlights ──
+    const highlightsEl = document.getElementById('modalHighlights');
+    const listEl = document.getElementById('modalHighlightsList');
+    listEl.innerHTML = '';
+    try {
+      const items = JSON.parse(d.modalHighlights);
+      if (items && items.length) {
+        items.forEach(item => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          listEl.appendChild(li);
+        });
+        highlightsEl.style.display = '';
+      } else {
+        highlightsEl.style.display = 'none';
+      }
+    } catch(e) { highlightsEl.style.display = 'none'; }
+
+    // ── Visual (left panel) ──
+    const visualEl = document.getElementById('modalVisual');
+    const emojiEl = document.getElementById('modalEmoji');
+
+    // Clear any previous media
+    Array.from(visualEl.querySelectorAll('img, video')).forEach(el => el.remove());
+    emojiEl.style.display = '';
+
+    const mediaSrc = d.modalMediaSrc || (card.querySelector('.proj-visual img') ? card.querySelector('.proj-visual img').src : '');
+
+    if (mediaSrc) {
+      const img = document.createElement('img');
+      img.src = mediaSrc;
+      img.alt = d.modalTitle || '';
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;position:absolute;inset:0;z-index:1;';
+      visualEl.appendChild(img);
+      emojiEl.style.display = 'none';
+    } else {
+      emojiEl.textContent = d.modalEmoji || '🤖';
+    }
+
+    // ── Color tint matching the card visual ──
+    const cardVisual = card.querySelector('.proj-visual');
+    let bg = 'linear-gradient(135deg, rgba(139,92,246,0.12), rgba(56,189,248,0.10))';
+    if (cardVisual && cardVisual.classList.contains('green'))  bg = 'linear-gradient(135deg, rgba(52,211,153,0.12), rgba(56,189,248,0.10))';
+    if (cardVisual && cardVisual.classList.contains('pink'))   bg = 'linear-gradient(135deg, rgba(244,114,182,0.14), rgba(167,139,250,0.10))';
+    if (cardVisual && cardVisual.classList.contains('orange')) bg = 'linear-gradient(135deg, rgba(251,146,60,0.14), rgba(244,114,182,0.10))';
+    visualEl.style.background = bg;
+
+    // ── Paper button ──
+    const paperBtn = document.getElementById('modalPaperBtn');
+    if (d.modalPaperUrl) {
+      paperBtn.href = d.modalPaperUrl;
+      paperBtn.style.display = '';
+    } else {
+      paperBtn.style.display = 'none';
+    }
+
+    // ── GitHub button ──
+    const ghBtn = document.getElementById('modalGithubBtn');
+    ghBtn.style.display = 'none';
+
+    // ── Open ──
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeModalOnOverlay(e) {
+    if (e.target === overlay) closeModal();
+  }
+
+  // Keyboard close
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+</body>
+</html>
