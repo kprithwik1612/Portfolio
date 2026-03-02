@@ -571,6 +571,8 @@
     }
     .modal-btn-ghost:hover { background: rgba(255,255,255,0.09); color: var(--text); transform: translateY(-2px); }
 
+    .hero-badge-mobile { display: none; }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       #home {
@@ -578,6 +580,8 @@
         grid-template-rows: auto auto auto auto;
         padding-top: 80px;
       }
+      .hero-badge-mobile { display: inline-flex; }
+      .hero-right .hero-badge { display: none; }
       #home .hero-left {
         grid-column: 1;
         grid-row: 1;
@@ -588,6 +592,14 @@
         grid-column: 1;
         grid-row: 2;
         padding: 3rem 2rem;
+      }
+      .hero-badge {
+        order: -1;
+        margin-bottom: 1.2rem;
+      }
+      #home .hero-right {
+        display: flex;
+        flex-direction: column;
       }
       #home .hero-skills-bar {
         grid-column: 1;
@@ -706,6 +718,10 @@
 <section id="home">
 
   <div class="hero-left">
+    <div class="hero-badge hero-badge-mobile">
+      <span class="badge-dot"></span>
+      Open to opportunities · West Lafayette, IN
+    </div>
     <div class="hero-avatar-wrap">
       <div class="hero-avatar-ring">
         <div class="hero-avatar-inner">
