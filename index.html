@@ -530,10 +530,43 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
-      #home { grid-template-columns: 1fr; grid-template-rows: auto auto auto; padding-top: 80px; }
-      #home .hero-left { grid-column: 1; grid-row: 1; border-bottom: 1px solid var(--glass-border); padding: 3rem 2rem; }
-      #home .hero-right { grid-column: 1; grid-row: 2; padding: 3rem 2rem; }
-      #home .scroll-hint { grid-row: 4; }
+      #home {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto auto;
+        padding-top: 80px;
+      }
+      #home .hero-left {
+        grid-column: 1;
+        grid-row: 1;
+        border-bottom: 1px solid var(--glass-border);
+        padding: 3rem 2rem;
+      }
+      #home .hero-right {
+        grid-column: 1;
+        grid-row: 2;
+        padding: 3rem 2rem;
+      }
+      #home .hero-skills-bar {
+        grid-column: 1;
+        grid-row: 3;
+        padding: 0 1.5rem 1rem;
+      }
+      #home .scroll-hint {
+        grid-column: 1;
+        grid-row: 4;
+        padding: 0.5rem 0 1rem;
+      }
+      .hero-skills-bar-cols {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .hero-skills-bar-col:first-child::after {
+        display: none;
+      }
+      .hero-skills-bar-col:first-child,
+      .hero-skills-bar-col:last-child {
+        padding: 0;
+      }
       .proj-grid { grid-template-columns: 1fr; }
       .proj-card.featured { grid-column: span 1; }
       .certs-grid { grid-template-columns: 1fr 1fr; }
@@ -549,6 +582,7 @@
       .certs-grid { grid-template-columns: 1fr; }
       .form-row { grid-template-columns: 1fr; }
       .hero-avatar-ring { width: 180px; height: 180px; }
+      .hero-skills-bar-cols { grid-template-columns: 1fr; }
       .modal { grid-template-columns: 1fr; }
     }
   </style>
