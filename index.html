@@ -393,8 +393,8 @@
     textarea { resize: none; min-height: 110px; }
     .send-btn { align-self: center; padding: 0.85rem 3rem; border-radius: 50px; border: none; cursor: pointer; font-family: var(--sans); font-size: 0.95rem; font-weight: 600; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; box-shadow: 0 0 30px rgba(167,139,250,0.3); transition: all 0.25s; }
     .send-btn:hover { box-shadow: 0 0 50px rgba(167,139,250,0.5); transform: translateY(-2px); }
-    .contact-info { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
-    .contact-info a { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .contact-info { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; row-gap: 0.8rem; }
+    .contact-info a, .contact-info span { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color 0.2s; white-space: nowrap; }
     .contact-info a:hover { color: var(--accent); }
 
     /* ── FOOTER ── */
@@ -1103,7 +1103,7 @@
   <p class="section-sub">Open to research collaborations, internships, and full-time opportunities in robotics and autonomy.</p>
   <div class="contact-card reveal">
     <div class="contact-form">
-      <form action="https://formspree.io/f/xlgwkqyp" method="POST" id="contactForm" onsubmit="handleSubmit(event)">
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contactForm" onsubmit="handleSubmit(event)">
       <div class="form-row">
         <div class="field"><label>Name</label><input type="text" name="name" placeholder="Your name" required/></div>
         <div class="field"><label>Email</label><input type="email" name="email" placeholder="your@email.com" required/></div>
@@ -1310,7 +1310,7 @@
   function closeModalOnOverlay(e) {
     if (e.target === overlay) closeModal();
   }
-  
+
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeModal();
   });
